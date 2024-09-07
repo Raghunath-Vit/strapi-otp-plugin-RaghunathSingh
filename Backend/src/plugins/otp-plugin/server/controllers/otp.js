@@ -13,7 +13,7 @@ module.exports = {
         return ctx.badRequest('Phone number must be between 10 and 13 characters');
       }
 
-      const otp = await strapi.plugin('otp-plugin').service('otp').generateAndCreateOtp(phoneNumber);
+      const otp = await strapi.plugin('otp-plugin').service('otp').generateAndCreateOtp(ctx);
       ctx.body = otp;
     } catch (err) {
       ctx.throw(500, err);
@@ -31,13 +31,14 @@ module.exports = {
         return ctx.badRequest('Phone number must be between 10 and 13 characters');
       }
 
-      const isValid = await strapi.plugin('otp-plugin').service('otp').validateOtp(phoneNumber, otpCode);
+      const isValid = await strapi.plugin('otp-plugin').service('otp').validateOtp(ctx);
       ctx.body = { isValid };
     } catch (err) {
       ctx.throw(500, err);
     }
   },
-    async find(ctx) {
+
+  async find(ctx) {
     try {
       const { query } = ctx;
       const otpLogins = await strapi.plugin("otp-plugin").service("otp").find(query);
@@ -46,6 +47,7 @@ module.exports = {
       ctx.throw(500, err);
     }
   },
+
   async findOne(ctx) {
     try {
       const { id } = ctx.params;
@@ -95,6 +97,4 @@ module.exports = {
       ctx.throw(500, err);
     }
   },
-
- 
 };

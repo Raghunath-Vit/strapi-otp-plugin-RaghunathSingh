@@ -1,17 +1,37 @@
 {
-  "name": "otp-plugin",
-  "version": "0.0.0",
-  "description": "This is the description of the plugin.",
+  "name": "rs-otp-plugin",
+  "version": "1.0.1",
+  "description": "A custom plugin for sending OTPs.",
+  "private": false,
   "strapi": {
     "name": "otp-plugin",
     "description": "Description of Otp Plugin plugin",
     "kind": "plugin",
     "displayName": "Otp Plugin"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Raghunath-Vit/otp-npm-deploy"
+  },
+  "author": {
+    "name": "Raghunath Singh",
+    "email": "raghunathsinghmannu1@gmail.com"
+  },
+  "maintainers": [
+    {
+      "name": "Raghunath Singh",
+      "email": "raghunathsinghmannu1@gmail.com"
+    }
+  ],
   "dependencies": {
-    "@strapi/design-system": "^1.6.3",
+    "@strapi/design-system": "^1.19.0",
     "@strapi/helper-plugin": "^4.6.0",
     "@strapi/icons": "^1.6.3",
+    "axios": "^1.7.7",
+    "dotenv": "^16.4.5",
+    "https": "^1.0.0",
+    "twilio": "^5.2.3",
+    "crypto": "^1.0.1",
     "prop-types": "^15.7.2"
   },
   "devDependencies": {
@@ -26,17 +46,17 @@
     "react-router-dom": "^5.2.0",
     "styled-components": "^5.2.1"
   },
-  "author": {
-    "name": "A Strapi developer"
+  "scripts": {
+    "develop": "strapi develop",
+    "start": "strapi start",
+    "build": "strapi build",
+    "strapi": "strapi"
   },
-  "maintainers": [
-    {
-      "name": "A Strapi developer"
-    }
-  ],
+ 
   "engines": {
     "node": ">=18.0.0 <=20.x.x",
     "npm": ">=6.0.0"
   },
+  "main": "index.js",
   "license": "MIT"
 }

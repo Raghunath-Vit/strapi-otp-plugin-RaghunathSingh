@@ -18,12 +18,11 @@ const HomePage = () => {
   const [success, setSuccess] = useState("");
 
   const handleGenerateOtp = async () => {
-    let url="http://localhost:1337/otp-plugin/otp-logins/generate";
     try {
       setError("");
       setSuccess("");
       const response = await axios.post(
-        url,
+        "http://localhost:1337/otp-plugin/otp-logins/generate",
         { phoneNumber }
       );
       setGeneratedOtp(response.data.otpCode);
@@ -35,12 +34,11 @@ const HomePage = () => {
   };
 
   const handleValidateOtp = async () => {
-    let url="http://localhost:1337/otp-plugin/otp-logins/validate";
     try {
       setError("");
       setSuccess("");
       const response = await axios.post(
-        url,
+        "http://localhost:1337/otp-plugin/otp-logins/validate",
         { phoneNumber, otpCode }
       );
       if (response.data.isValid) {
