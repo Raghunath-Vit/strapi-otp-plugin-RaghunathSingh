@@ -1,0 +1,19 @@
+.container{
+  display: flex;
+  
+}
+
+.signotp{
+  color: white;
+  background-color: red;
+  display: flex;
+  margin: auto;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+
+button{
+  padding: 0.5rem;
+
+}
