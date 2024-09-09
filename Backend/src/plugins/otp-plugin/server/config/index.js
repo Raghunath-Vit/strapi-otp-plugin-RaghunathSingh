@@ -19,6 +19,9 @@ module.exports = {
     authToken: process.env.TWILIO_AUTH_TOKEN,
     phoneNumber: process.env.TWILIO_PHONE_NUMBER,
   },
+  brevo: {
+    apiKey: process.env.BREVO_API_KEY,
+  },
 };
 
 

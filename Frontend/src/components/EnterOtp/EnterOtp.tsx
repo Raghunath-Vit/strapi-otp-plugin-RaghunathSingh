@@ -2,32 +2,35 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { usePhoneNumber } from '../../PhoneNumberContext';
-import './EnterOtp.css'; 
+import './EnterOtp.css';
 
 const EnterOtp: React.FC = () => {
-  const { phoneNumber } = usePhoneNumber();
+  const { phoneNumber } = usePhoneNumber(); // Access the phone number from context
   const [otpCode, setOtpCode] = useState<string>('');
-  const [timer, setTimer] = useState<number>(300); 
+  const [timer, setTimer] = useState<number>(300); // 5-minute timer for OTP expiry
   const [otpExpired, setOtpExpired] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
   const [success, setSuccess] = useState<string>('');
   const navigate = useNavigate();
 
+  // Timer countdown logic
   useEffect(() => {
     if (timer > 0) {
       const countdown = setTimeout(() => setTimer(timer - 1), 1000);
       return () => clearTimeout(countdown);
     } else {
-      setOtpExpired(true);
+      setOtpExpired(true); // OTP expires when timer hits zero
     }
   }, [timer]);
 
+  // Format timer display (MM:SS)
   const formatTimer = () => {
     const minutes = Math.floor(timer / 60);
     const seconds = timer % 60;
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   };
 
+  // Validate OTP by sending a POST request to the backend
   const handleValidateOtp = async () => {
     try {
       setError('');
@@ -40,14 +43,22 @@ const EnterOtp: React.FC = () => {
         phoneNumber,
         otpCode,
       });
-      console.log(response.statusText);
-      if (response.request.statusText==="OK") {
-        setSuccess('OTP validated successfully!');
-        navigate('/home');
-      } else {
-        setError('Invalid OTP. Please check and try again.');
-      }
+      console.log(response.data.isValid.jwt);
+      
+      const token = response.data.isValid.jwt;
+      
+      
+      localStorage.setItem('jwtToken', token);
+
+     
+      console.log('JWT Token:', token);
+
+     
+      setSuccess('OTP validated successfully!');
+      navigate('/home');
+      
     } catch (err: any) {
+      
       if (err.response && err.response.data) {
         setError(err.response.data.message || 'Failed to validate OTP. Please try again.');
       } else {
